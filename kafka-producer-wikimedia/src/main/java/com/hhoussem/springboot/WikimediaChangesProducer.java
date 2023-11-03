@@ -24,9 +24,8 @@ public class WikimediaChangesProducer {
 
     public void sendMessage() throws InterruptedException {
         // to read real time stream data from wikimedia, we use event  source
-        EventHandler enventHandler = new WikimediaChangesHandler(kafkaTemplate, topicName);
-        System.out.println(topicName);
-        EventSource eventSource = new EventSource.Builder(enventHandler, URI.create(URL_STREAM_RECENTCHANGE)).build();
+        EventHandler eventHandler = new WikimediaChangesHandler(kafkaTemplate, topicName);
+        EventSource eventSource = new EventSource.Builder(eventHandler, URI.create(URL_STREAM_RECENTCHANGE)).build();
         eventSource.start();
         TimeUnit.SECONDS.sleep(30);
     }
