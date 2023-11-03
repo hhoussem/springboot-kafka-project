@@ -24,9 +24,8 @@ public class WikimediaChangesProducer {
         String topic = "wikimedia_recentchange";
         EventHandler enventHandler = new WikimediaChangesHandler(kafkaTemplate, topic);
 
-        try (EventSource eventSource = new EventSource.Builder(enventHandler, URI.create(URL_STREAM_RECENTCHANGE)).build()) {
-            eventSource.start();
-        }
+        EventSource eventSource = new EventSource.Builder(enventHandler, URI.create(URL_STREAM_RECENTCHANGE)).build();
+        eventSource.start();
         TimeUnit.SECONDS.sleep(30);
     }
 
